@@ -4,6 +4,7 @@
 #include "PlayerCharacterController.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
+#include "Interfaces/EnemyInterface.h"
 
 APlayerCharacterController::APlayerCharacterController()
 {
@@ -26,6 +27,12 @@ void APlayerCharacterController::BeginPlay()
 	InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
 	InputMode.SetHideCursorDuringCapture(false);
 	SetInputMode(InputMode);
+}
+
+void APlayerCharacterController::PlayerTick(float DeltaTime)
+{
+	Super::PlayerTick(DeltaTime);
+	CursorTrace();
 }
 
 void APlayerCharacterController::SetupInputComponent()
@@ -55,5 +62,29 @@ void APlayerCharacterController::Move(const FInputActionValue& Value)
 	{
 		ControlledPawn->AddMovementInput(ForwardDirection, InputAxisVector.Y);
 		ControlledPawn->AddMovementInput(RightDirection, InputAxisVector.X);
+	}
+}
+
+void APlayerCharacterController::CursorTrace()
+{
+	FHitResult Result;
+	GetHitResultUnderCursor(ECC_Visibility, false, Result);
+
+	if (!Result.bBlockingHit) return;
+
+	LastEnemy = CurrentEnemy;
+	CurrentEnemy = Cast<IEnemyInterface>(Result.GetActor());
+
+	// If the current enemy is different from the last enemy, unhighlight the last enemy and highlight the current enemy.
+	if (CurrentEnemy != LastEnemy)
+	{
+		if (LastEnemy != nullptr)
+		{
+			LastEnemy->Unhighlight();
+		}
+		if (CurrentEnemy != nullptr)
+		{
+			CurrentEnemy->Highlight();
+		}
 	}
 }
