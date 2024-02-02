@@ -15,6 +15,8 @@ class AURA_API AEnemyCharacter : public ACharacterBase, public IEnemyInterface
 {
 	GENERATED_BODY()
 
+protected:
+	virtual void BeginPlay() override;
 public:
 	AEnemyCharacter();
 	virtual void Highlight() override;
