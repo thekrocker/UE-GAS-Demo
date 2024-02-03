@@ -6,6 +6,14 @@
 #include "AbilitySystemComponent.h"
 #include "Net/UnrealNetwork.h"
 
+USafaAttributeSet::USafaAttributeSet()
+{
+	InitHealth(100.0f);
+	InitMaxHealth(100.0f);
+	InitMana(100.0f);
+	InitMaxMana(100.0f);
+}
+
 void USafaAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);

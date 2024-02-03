@@ -4,9 +4,11 @@
 #include "PlayerCharacter.h"
 
 #include "AbilitySystemComponent.h"
+#include "PlayerCharacterController.h"
 #include "PlayerCharacterState.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerState.h"
+#include "UI/SafaHUD.h"
 
 APlayerCharacter::APlayerCharacter()
 {
@@ -43,4 +45,13 @@ void APlayerCharacter::InitializeAbilityActorInfo()
 	AbilitySystemComponent = State->GetAbilitySystemComponent();
 	AttributeSet = State->AttributeSet;
 	State->GetAbilitySystemComponent()->InitAbilityActorInfo(State, this);
+
+	if (APlayerCharacterController* PlayerController = Cast<APlayerCharacterController>(GetController()))
+	{
+		if (ASafaHUD* Hud = Cast<ASafaHUD>(PlayerController->GetHUD()))
+		{
+			Hud->InitializeOverlay(PlayerController, State, AbilitySystemComponent, AttributeSet);
+		}
+	}
+	
 }

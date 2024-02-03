@@ -6,6 +6,11 @@
 #include "GameFramework/HUD.h"
 #include "SafaHUD.generated.h"
 
+class USafaUserWidget;
+class UAttributeSet;
+class UAbilitySystemComponent;
+struct FWidgetControllerParams;
+class UOverlayWidgetController;
 /**
  * 
  */
@@ -15,11 +20,21 @@ class AURA_API ASafaHUD : public AHUD
 	GENERATED_BODY()
 
 public:
-	virtual void BeginPlay() override;
+
+	void InitializeOverlay(APlayerController* APC, APlayerState* PS, UAbilitySystemComponent* ACS, UAttributeSet* AS);
+
+	// Create if doesnt exist, otherwise return the widget
+	UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& InWidgetControllerParams);
 	
 	UPROPERTY()
-	TObjectPtr<UUserWidget> WidgetPtr;
+	TObjectPtr<USafaUserWidget> WidgetPtr;
 	
 	UPROPERTY(EditAnywhere, Category= "Widget")
 	TSubclassOf<UUserWidget> WidgetClass;
+
+	UPROPERTY()
+	TObjectPtr<UOverlayWidgetController> OverlayWidgetController;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UOverlayWidgetController> OverlayWidgetControllerClass;
 };

@@ -19,8 +19,12 @@ void APlayerCharacterController::BeginPlay()
 	check(PlayerInputContext);
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(
 		GetLocalPlayer());
-	check(Subsystem);
-	Subsystem->AddMappingContext(PlayerInputContext, 0);
+
+	if (Subsystem)
+	{
+		Subsystem->AddMappingContext(PlayerInputContext, 0);
+	}
+
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
 	FInputModeGameAndUI InputMode;
