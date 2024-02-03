@@ -4,6 +4,10 @@
 #include "UI/WidgetController/SafaWidgetController.h"
 
 
+void USafaWidgetController::BindCallbacks()
+{
+}
+
 void USafaWidgetController::BroadcastInitialValues()
 {
 }

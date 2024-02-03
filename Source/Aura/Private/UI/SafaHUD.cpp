@@ -31,6 +31,7 @@ UOverlayWidgetController* ASafaHUD::GetOverlayWidgetController(const FWidgetCont
 	{
 		OverlayWidgetController = NewObject<UOverlayWidgetController>(this, OverlayWidgetControllerClass);
 		OverlayWidgetController->SetWidgetControllerParams(InWidgetControllerParams);
+		OverlayWidgetController->BindCallbacks();
 	}
 
 	return OverlayWidgetController;

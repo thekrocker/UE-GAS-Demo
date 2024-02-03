@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "SafaWidgetController.generated.h"
 
+struct FOnAttributeChangeData;
 class UAttributeSet;
 class UAbilitySystemComponent;
 
@@ -45,6 +46,7 @@ class AURA_API USafaWidgetController : public UObject
 	GENERATED_BODY()
 
 public:
+	virtual void BindCallbacks();
 	virtual void BroadcastInitialValues();
 	
 	UFUNCTION(BlueprintCallable)

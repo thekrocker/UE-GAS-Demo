@@ -18,9 +18,21 @@ class AURA_API UOverlayWidgetController : public USafaWidgetController
 
 public:
 	virtual void BroadcastInitialValues() override;
+	virtual void BindCallbacks() override;
 
 	UPROPERTY(BlueprintAssignable, Category="GAS | Attributes")
 	FOnValueChangedSignature OnHealthChanged;
 	UPROPERTY(BlueprintAssignable, Category="GAS | Attributes")
 	FOnValueChangedSignature OnMaxHealthChanged;
+
+	UPROPERTY(BlueprintAssignable, Category="GAS | Attributes")
+	FOnValueChangedSignature OnManaChanged;
+	UPROPERTY(BlueprintAssignable, Category="GAS | Attributes")
+	FOnValueChangedSignature OnMaxManaChanged;
+
+	void HealthChange(const FOnAttributeChangeData& Data) const;
+	void MaxHealthChange(const FOnAttributeChangeData& Data) const;
+
+	void ManaChange(const FOnAttributeChangeData& Data) const;
+	void MaxManaChange(const FOnAttributeChangeData& Data) const;
 };
